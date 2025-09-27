@@ -90,8 +90,15 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        if (isLeaf() || path.isEmpty()){
+            return root;
+        }
+        else if (path.charAt(0) == 'l'){
+            return left.retrieve(path.substring(1));
+        }
+        else{
+            return right.retrieve(path.substring(1));
+        }
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -122,13 +129,16 @@ public class NumberTriangle {
         while (line != null) {
 
             // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+            // System.out.println(line);
 
             String[] numbers = line.split(" ");
 
             for (int i = 0; i < numbers.length; i++) {
                 NumberTriangle n_triangle = new NumberTriangle(Integer.parseInt(numbers[i]));
                 curr_list.add(n_triangle);
+                if (top == null) {
+                    top = n_triangle;
+                }
             }
 
             for (int i = 0; i < last_list_empty.size(); i++) {
@@ -153,7 +163,7 @@ public class NumberTriangle {
         // [not for credit]
         // you can implement NumberTriangle's maxPathSum method if you want to try to solve
         // Problem 18 from project Euler [not for credit]
-        mt.maxSumPath();
-        System.out.println(mt.getRoot());
+        // mt.maxSumPath();
+        // System.out.println(mt.getRoot());
     }
 }
